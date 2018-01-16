@@ -1,4 +1,4 @@
-package zhou.com.gusture;
+package com.zhou.readbook;
 
 import org.junit.Test;
 
