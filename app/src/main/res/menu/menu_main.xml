@@ -1,50 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2016 JustWayward Team
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity" >
     <item
         android:id="@+id/action_search"
-        android:icon="@drawable/abc_ic_search_api_mtrl_alpha"
+        android:orderInCategory="80"
         android:title="action_search"
-        app:showAsAction="ifRoom" />
+        android:icon="@drawable/abc_ic_search_api_mtrl_alpha"
+        app:showAsAction="ifRoom"/>
+
     <item
         android:id="@+id/action_login"
+        android:title="@string/menu_main_please_login"
         android:icon="@drawable/home_menu_0"
-        android:title="请登录"
         app:showAsAction="never" />
+
     <item
         android:id="@+id/action_my_message"
+        android:title="@string/menu_main_my_message"
         android:icon="@drawable/home_menu_1"
-        android:title="我的消息"
         app:showAsAction="never" />
+
     <item
         android:id="@+id/action_sync_bookshelf"
+        android:title="@string/menu_main_sync_bookshelf"
         android:icon="@drawable/home_menu_2"
-        android:title="同步书架"
         app:showAsAction="never" />
+
     <item
         android:id="@+id/action_scan_local_book"
+        android:title="@string/menu_main_scan_local_book"
         android:icon="@drawable/home_menu_3"
-        android:title="扫码本地书籍"
         app:showAsAction="never" />
+
     <item
         android:id="@+id/action_wifi_book"
+        android:title="@string/menu_main_wifi_book"
         android:icon="@drawable/home_menu_4"
-        android:title="WiFi传书"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_feedback"
+        android:title="@string/menu_main_feedback"
         android:icon="@drawable/home_menu_5"
-        android:title="意见反馈"
         app:showAsAction="never" />
+
     <item
         android:id="@+id/action_night_mode"
+        android:title="@string/menu_main_night_mode"
         android:icon="@drawable/theme_night"
-        android:title="夜间模式"
         app:showAsAction="never" />
+
     <item
         android:id="@+id/action_settings"
+        android:title="@string/menu_main_settings"
         android:icon="@drawable/home_menu_6"
-        android:title="设置"
         app:showAsAction="never" />
 </menu>
