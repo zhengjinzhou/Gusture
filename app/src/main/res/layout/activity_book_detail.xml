@@ -255,7 +255,7 @@
                 android:layout_margin="10dp"
                 android:background="@color/common_divider_narrow" />
 
-            <com.justwayward.reader.view.TagGroup
+            <com.zhou.book.view.TagGroup
                 android:id="@+id/tag_group"
                 style="@style/TagGroup"
                 android:layout_marginLeft="15dp"
