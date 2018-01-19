@@ -16,6 +16,7 @@
 package com.zhou.book.ui.activity;
 
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -135,6 +136,14 @@ public class BookDetailActivity extends BaseActivity implements BookDetailContra
     private Recommend.RecommendBooks recommendBooks;
     private boolean isJoinedCollections = false;
 
+
+    private static final int REQUEST_CODE = 0; // 请求码
+    // 所需的全部权限
+    static final String[] PERMISSIONS = new String[]{
+            Manifest.permission.RECORD_AUDIO,
+            Manifest.permission.MODIFY_AUDIO_SETTINGS
+    };
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_book_detail;
@@ -158,6 +167,7 @@ public class BookDetailActivity extends BaseActivity implements BookDetailContra
     public void initDatas() {
         bookId = getIntent().getStringExtra(INTENT_BOOK_ID);
         EventBus.getDefault().register(this);
+
     }
 
     @Override
@@ -389,5 +399,6 @@ public class BookDetailActivity extends BaseActivity implements BookDetailContra
         if (mPresenter != null) {
             mPresenter.detachView();
         }
+
     }
 }

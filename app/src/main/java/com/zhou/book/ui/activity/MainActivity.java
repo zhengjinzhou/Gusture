@@ -27,6 +27,7 @@
 package com.zhou.book.ui.activity;
 
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -278,6 +279,7 @@ public class MainActivity extends BaseActivity implements MainContract.View, Log
      * @param menu
      * @return
      */
+    @SuppressLint("RestrictedApi")
     @Override
     protected boolean onPrepareOptionsPanel(View view, Menu menu) {
         if (menu != null) {
@@ -296,7 +298,7 @@ public class MainActivity extends BaseActivity implements MainContract.View, Log
 
     @Override
     public void loginSuccess() {
-        ToastUtils.showSingleToast("登陆成功");
+        //ToastUtils.showSingleToast("登陆成功");
     }
 
     @Override
@@ -307,13 +309,12 @@ public class MainActivity extends BaseActivity implements MainContract.View, Log
 
     @Override
     public void onLogin(ImageView view, String type) {
-        if (type.equals("QQ")) {
+        /*if (type.equals("QQ")) {
             if (!mTencent.isSessionValid()) {
                 if (loginListener == null) loginListener = new BaseUIListener();
                 mTencent.login(this, "all", loginListener);
             }
-        }
-        //4f45e920ff5d1a0e29d997986cd97181
+        }*/
     }
 
     @Override
@@ -325,29 +326,6 @@ public class MainActivity extends BaseActivity implements MainContract.View, Log
     @Override
     public void complete() {
 
-    }
-
-
-    public class BaseUIListener implements IUiListener {
-
-        @Override
-        public void onComplete(Object o) {
-            JSONObject jsonObject = (JSONObject) o;
-            String json = jsonObject.toString();
-            Gson gson = new Gson();
-            TencentLoginResult result = gson.fromJson(json, TencentLoginResult.class);
-            LogUtils.e(result.toString());
-            mPresenter.login(result.openid, result.access_token, "QQ");
-        }
-
-        @Override
-        public void onError(UiError uiError) {
-        }
-
-        @Override
-        public void onCancel() {
-
-        }
     }
 
     @Override

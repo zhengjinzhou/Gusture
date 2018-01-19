@@ -32,7 +32,7 @@ public interface MainContract {
 
     interface Presenter<T> extends BaseContract.BasePresenter<T> {
 
-        void login(String uid, String token, String platform);
+        //void login(String uid, String token, String platform);
 
         void syncBookShelf();
     }

@@ -59,7 +59,7 @@ public class ReaderApplication extends Application {
         CrashHandler.getInstance().init(this);
         initPrefs();
         initNightMode();
-        //initHciCloud();
+       // initHciCloud();灵云播放暂时使用不了，先注释掉
     }
 
     public static ReaderApplication getsInstance() {
@@ -99,9 +99,9 @@ public class ReaderApplication extends Application {
         String authDirPath = getFilesDir().getAbsolutePath();
         initparam.addParam(InitParam.AuthParam.PARAM_KEY_AUTH_PATH, authDirPath);
         initparam.addParam(InitParam.AuthParam.PARAM_KEY_AUTO_CLOUD_AUTH, "no");
-        initparam.addParam(InitParam.AuthParam.PARAM_KEY_CLOUD_URL, "test.api.hcicloud.com:8888");
-        initparam.addParam(InitParam.AuthParam.PARAM_KEY_DEVELOPER_KEY, "0a5e69f8fb1c019b2d87a17acf200889");
-        initparam.addParam(InitParam.AuthParam.PARAM_KEY_APP_KEY, "0d5d5466");
+        initparam.addParam(InitParam.AuthParam.PARAM_KEY_CLOUD_URL, "api.hcicloud.com:8888");
+        initparam.addParam(InitParam.AuthParam.PARAM_KEY_DEVELOPER_KEY, "3f1874e2387baca6277ac32e03490db8");
+        initparam.addParam(InitParam.AuthParam.PARAM_KEY_APP_KEY, "d45d54d9");
         String logDirPath = FileUtils.createRootPath(this) + "/hcicloud";
         FileUtils.createDir(logDirPath);
         initparam.addParam(InitParam.LogParam.PARAM_KEY_LOG_FILE_PATH, logDirPath);

@@ -46,12 +46,9 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
-
 import com.sinovoice.hcicloudsdk.android.tts.player.TTSPlayer;
 import com.sinovoice.hcicloudsdk.common.tts.TtsConfig;
-import com.sinovoice.hcicloudsdk.player.TTSCommonPlayer;
 import com.zhou.book.R;
-import com.zhou.book.ReaderApplication;
 import com.zhou.book.base.BaseActivity;
 import com.zhou.book.base.Constant;
 import com.zhou.book.bean.BookMixAToc;
@@ -82,7 +79,6 @@ import com.zhou.book.utils.FormatUtils;
 import com.zhou.book.utils.LogUtils;
 import com.zhou.book.utils.ScreenUtils;
 import com.zhou.book.utils.SharedPreferencesUtil;
-import com.zhou.book.utils.TTSPlayerUtils;
 import com.zhou.book.utils.ToastUtils;
 import com.zhou.book.view.readview.BaseReadView;
 import com.zhou.book.view.readview.NoAimWidget;
@@ -114,80 +110,41 @@ import rx.functions.Action1;
  */
 public class ReadActivity extends BaseActivity implements BookReadContract.View {
 
-    @BindView(R.id.ivBack)
-    ImageView mIvBack;
-    @BindView(R.id.tvBookReadReading)
-    TextView mTvBookReadReading;
-    @BindView(R.id.tvBookReadCommunity)
-    TextView mTvBookReadCommunity;
-    @BindView(R.id.tvBookReadIntroduce)
-    TextView mTvBookReadChangeSource;
-    @BindView(R.id.tvBookReadSource)
-    TextView mTvBookReadSource;
-
-    @BindView(R.id.flReadWidget)
-    FrameLayout flReadWidget;
-
-    @BindView(R.id.llBookReadTop)
-    LinearLayout mLlBookReadTop;
-    @BindView(R.id.tvBookReadTocTitle)
-    TextView mTvBookReadTocTitle;
-    @BindView(R.id.tvBookReadMode)
-    TextView mTvBookReadMode;
-    @BindView(R.id.tvBookReadSettings)
-    TextView mTvBookReadSettings;
-    @BindView(R.id.tvBookReadDownload)
-    TextView mTvBookReadDownload;
-    @BindView(R.id.tvBookReadToc)
-    TextView mTvBookReadToc;
-    @BindView(R.id.llBookReadBottom)
-    LinearLayout mLlBookReadBottom;
-    @BindView(R.id.rlBookReadRoot)
-    RelativeLayout mRlBookReadRoot;
-    @BindView(R.id.tvDownloadProgress)
-    TextView mTvDownloadProgress;
-
-    @BindView(R.id.rlReadAaSet)
-    LinearLayout rlReadAaSet;
-    @BindView(R.id.ivBrightnessMinus)
-    ImageView ivBrightnessMinus;
-    @BindView(R.id.seekbarLightness)
-    SeekBar seekbarLightness;
-    @BindView(R.id.ivBrightnessPlus)
-    ImageView ivBrightnessPlus;
-    @BindView(R.id.tvFontsizeMinus)
-    TextView tvFontsizeMinus;
-    @BindView(R.id.seekbarFontSize)
-    SeekBar seekbarFontSize;
-    @BindView(R.id.tvFontsizePlus)
-    TextView tvFontsizePlus;
-
-    @BindView(R.id.rlReadMark)
-    LinearLayout rlReadMark;
-    @BindView(R.id.tvAddMark)
-    TextView tvAddMark;
-    @BindView(R.id.lvMark)
-    ListView lvMark;
-
-    @BindView(R.id.cbVolume)
-    CheckBox cbVolume;
-    @BindView(R.id.cbAutoBrightness)
-    CheckBox cbAutoBrightness;
-    @BindView(R.id.gvTheme)
-    GridView gvTheme;
-
+    @BindView(R.id.ivBack) ImageView mIvBack;
+    @BindView(R.id.tvBookReadReading) TextView mTvBookReadReading;
+    @BindView(R.id.tvBookReadCommunity) TextView mTvBookReadCommunity;
+    @BindView(R.id.tvBookReadIntroduce) TextView mTvBookReadChangeSource;
+    @BindView(R.id.tvBookReadSource) TextView mTvBookReadSource;
+    @BindView(R.id.flReadWidget) FrameLayout flReadWidget;
+    @BindView(R.id.llBookReadTop) LinearLayout mLlBookReadTop;
+    @BindView(R.id.tvBookReadTocTitle) TextView mTvBookReadTocTitle;
+    @BindView(R.id.tvBookReadMode) TextView mTvBookReadMode;
+    @BindView(R.id.tvBookReadSettings) TextView mTvBookReadSettings;
+    @BindView(R.id.tvBookReadDownload) TextView mTvBookReadDownload;
+    @BindView(R.id.tvBookReadToc) TextView mTvBookReadToc;
+    @BindView(R.id.llBookReadBottom) LinearLayout mLlBookReadBottom;
+    @BindView(R.id.rlBookReadRoot) RelativeLayout mRlBookReadRoot;
+    @BindView(R.id.tvDownloadProgress) TextView mTvDownloadProgress;
+    @BindView(R.id.rlReadAaSet) LinearLayout rlReadAaSet;
+    @BindView(R.id.ivBrightnessMinus) ImageView ivBrightnessMinus;
+    @BindView(R.id.seekbarLightness) SeekBar seekbarLightness;
+    @BindView(R.id.ivBrightnessPlus) ImageView ivBrightnessPlus;
+    @BindView(R.id.tvFontsizeMinus) TextView tvFontsizeMinus;
+    @BindView(R.id.seekbarFontSize) SeekBar seekbarFontSize;
+    @BindView(R.id.tvFontsizePlus) TextView tvFontsizePlus;
+    @BindView(R.id.rlReadMark) LinearLayout rlReadMark;
+    @BindView(R.id.tvAddMark) TextView tvAddMark;
+    @BindView(R.id.lvMark) ListView lvMark;
+    @BindView(R.id.cbVolume) CheckBox cbVolume;
+    @BindView(R.id.cbAutoBrightness) CheckBox cbAutoBrightness;
+    @BindView(R.id.gvTheme) GridView gvTheme;
     private View decodeView;
-
-    @Inject
-    BookReadPresenter mPresenter;
-
+    @Inject BookReadPresenter mPresenter;
     private List<BookMixAToc.mixToc.Chapters> mChapterList = new ArrayList<>();
     private ListPopupWindow mTocListPopupWindow;
     private TocListAdapter mTocListAdapter;
-
     private List<BookMark> mMarkList;
     private BookMarkAdapter mMarkAdapter;
-
     private int currentChapter = 1;
 
     /**
@@ -281,8 +238,8 @@ public class ReadActivity extends BaseActivity implements BookReadContract.View 
 
         mTvBookReadTocTitle.setText(recommendBooks.title);
 
-        mTtsPlayer = TTSPlayerUtils.getTTSPlayer();
-        ttsConfig = TTSPlayerUtils.getTtsConfig();
+        //mTtsPlayer = TTSPlayerUtils.getTTSPlayer();
+         //ttsConfig = TTSPlayerUtils.getTtsConfig();
 
         intentFilter.addAction(Intent.ACTION_BATTERY_CHANGED);
         intentFilter.addAction(Intent.ACTION_TIME_TICK);
@@ -873,8 +830,8 @@ public class ReadActivity extends BaseActivity implements BookReadContract.View 
     protected void onDestroy() {
         super.onDestroy();
 
-        if (mTtsPlayer.getPlayerState() == TTSCommonPlayer.PLAYER_STATE_PLAYING)
-            mTtsPlayer.stop();
+        /*if (mTtsPlayer.getPlayerState() == TTSCommonPlayer.PLAYER_STATE_PLAYING)
+            mTtsPlayer.stop();*/
 
         EventManager.refreshCollectionIcon();
         EventManager.refreshCollectionList();
@@ -897,7 +854,7 @@ public class ReadActivity extends BaseActivity implements BookReadContract.View 
         }
 
         // 观察内存泄漏情况
-        //ReaderApplication.getRefWatcher(this).watch(this);
+        // ReaderApplication.getRefWatcher(this).watch(this);
     }
 
     private class ReadListener implements OnReadStateChangeListener {

@@ -52,7 +52,7 @@ public class MainActivityPresenter extends RxPresenter<MainContract.View> implem
         this.bookApi = bookApi;
     }
 
-    @Override
+    /*@Override
     public void login(String uid, String token, String platform) {
         Subscription rxSubscription = bookApi.login(uid, token, platform).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -75,7 +75,7 @@ public class MainActivityPresenter extends RxPresenter<MainContract.View> implem
                     }
                 });
         addSubscrebe(rxSubscription);
-    }
+    }*/
 
     @Override
     public void syncBookShelf() {
