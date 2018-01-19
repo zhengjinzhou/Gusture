@@ -27,19 +27,25 @@
 package com.zhou.book.ui.activity;
 
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.view.menu.MenuBuilder;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.tencent.connect.common.Constants;
@@ -130,9 +136,12 @@ public class MainActivity extends BaseActivity implements MainContract.View, Log
 
     @Override
     public void initDatas() {
+
+        setLight();
+        requestPermission();//权限申请
         startService(new Intent(this, DownloadBookService.class));
 
-        mTencent = Tencent.createInstance("1105670298", MainActivity.this);
+        // mTencent = Tencent.createInstance("1105670298", MainActivity.this);
 
         mDatas = Arrays.asList(getResources().getStringArray(R.array.home_tabs));
         mTabContents = new ArrayList<>();
@@ -151,6 +160,25 @@ public class MainActivity extends BaseActivity implements MainContract.View, Log
                 return mTabContents.get(position);
             }
         };
+    }
+
+    /**
+     * 设置亮度问题，签名打包后删掉试试
+     */
+    private static final int REQUEST_CODE_ASK_WRITE_SETTINGS = 1111;
+
+    private void setLight() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (!Settings.System.canWrite(this)) {
+                Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS,
+                        Uri.parse("package:" + getPackageName()));
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivityForResult(intent, REQUEST_CODE_ASK_WRITE_SETTINGS);
+            } else {
+                
+            }
+        }
+
     }
 
     @Override
@@ -331,7 +359,7 @@ public class MainActivity extends BaseActivity implements MainContract.View, Log
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == Constants.REQUEST_LOGIN || requestCode == Constants.REQUEST_APPBAR) {
-            Tencent.onActivityResultData(requestCode, resultCode, data, loginListener);
+            //Tencent.onActivityResultData(requestCode, resultCode, data, loginListener);
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -344,5 +372,33 @@ public class MainActivity extends BaseActivity implements MainContract.View, Log
         if (mPresenter != null) {
             mPresenter.detachView();
         }
+    }
+
+    /**
+     * 权限
+     */
+    private void requestPermission() {
+        requestRunTimePermission(new String[]{
+                        Manifest.permission.READ_PHONE_STATE,
+                        Manifest.permission.WRITE_SETTINGS,
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+
+                }
+                , new PermissionListener() {
+                    @Override
+                    public void onGranted() {  //所有权限授权成功
+                        Log.d("", "onGranted: ");
+                    }
+
+                    @Override
+                    public void onGranted(List<String> grantedPermission) { //授权失败权限集合
+                    }
+
+                    @Override
+                    public void onDenied(List<String> deniedPermission) { //授权成功权限集合
+
+                    }
+                });
     }
 }
